@@ -1,16 +1,30 @@
-# racer
+# racer [![GoDoc](https://godoc.org/github.com/gosuri/racer?status.svg)](https://godoc.org/github.com/gosuri/racer) [![Build Status](https://travis-ci.org/gosuri/racer.svg?branch=master)](https://travis-ci.org/gosuri/racer)
 
-Racer is a helper library for [Cobra](https://github.com/spf13/cobra), a library for creating powerful modern CLI applications. It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
+Racer is a UI helper library for [Cobra](https://github.com/spf13/cobra), a library for creating powerful modern CLI applications. It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
 
 ## Features
 
 Racer currently supports [Cobra 0.0.9](https://github.com/spf13/cobra) and adds the below additionaly functionality:
 
-* Topic namespaced subcommand `foo:bar` for easy.
-* Automatic help generation, provides `-h` `--help` flags.
+* Command organization based on help topic `foo:bar`
 * Tabled Output formatting helpers
-* Progress Bar
-* Interactive User Inputs
+* Interactive UI components - Normal Prompts, Password Prompts, Progress Bar
+
+Cobra provides:
+
+* Fully posix compliant flags (including short & long versions)
+* Nested sub commands
+* Global, local and cascading flags
+* Easy generation of applications & commands with `cobra create appname` & `cobra add cmdname`
+* Intelligent suggestions (`app srver`.. did you mean `app server`)
+* Automatic help generation for commands and flags
+* Automatic detailed help for `app help [command]`
+* Automatic help flag recognition of `-h`, `--help`, etc.
+* Automatically generated bash autocomplete for your application
+* Automatically generated man pages for your application
+* Command aliases so you can change things without breaking them
+* The flexibilty to define your own help, usage, etc
+* Optional tight integration with [viper](http://github.com/spf13/viper) for 12 factor apps
 
 ## Help Topics
 
@@ -64,6 +78,31 @@ Additional commands, type "ovrclk COMMAND --help" for more details:
   clusters:update --cluster=<name>         Update the cluster
 ```
 
-## Examples
+## UI Components
+
+### Progress Bar
+
+```go
+count := 5000
+bar := racer.UI().NewProgressBar(count)
+for i := 0; i < count; i++ {
+  bar.Increment()
+  time.Sleep(time.Millisecond)
+}
+bar.FinishPrint("The End!")
+```
+
+```sh
+963 / 5000 [=====================>---------------------------------] 39.26 % 3s
+```
+
+### Password Prompter
+
+```go
+var password string
+racer.UI().Prompter().PromptHiddenString(&password, "Password: ")
+```
+
+## More Examples
 
 See examples under [/examples](examples) for full examples
