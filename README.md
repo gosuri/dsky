@@ -1,6 +1,6 @@
 # racer [![GoDoc](https://godoc.org/github.com/gosuri/racer?status.svg)](https://godoc.org/github.com/gosuri/racer) [![Build Status](https://travis-ci.org/gosuri/racer.svg?branch=master)](https://travis-ci.org/gosuri/racer)
 
-Racer is a UI helper library for [Cobra](https://github.com/spf13/cobra), a library for creating powerful modern CLI applications. It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
+Racer is a UI framework for Terminal applications, based on [Cobra](https://github.com/spf13/cobra). It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
 
 ## Features
 
@@ -9,7 +9,7 @@ Racer currently supports [Cobra 0.0.9](https://github.com/spf13/cobra) and adds 
 * Command organization based on help topic `foo:bar`
 * Tabled Output formatting helpers
 * Interactive UI components - Normal Prompts, Password Prompts, Progress Bar
-* Terminal Text Sytles - 
+* Terminal Text Styling - Foreground and Background colors with Style Emphasis 
 
 Cobra provides:
 
@@ -85,7 +85,7 @@ Additional commands, type "ovrclk COMMAND --help" for more details:
 
 ```go
 count := 5000
-bar := racer.UI().NewProgressBar(count)
+bar := racer.UI().NewProgressBar(count).Start()
 for i := 0; i < count; i++ {
   bar.Increment()
   time.Sleep(time.Millisecond)
@@ -97,16 +97,17 @@ bar.FinishPrint("The End!")
 963 / 5000 [=====================>---------------------------------] 39.26 % 3s
 ```
 
-### Password Prompter
+### Hidden Input Prompt
 
 ```go
 var password string
 racer.UI().Prompter().PromptHiddenString(&password, "Password: ")
 ```
 
-### Text Styles
+### Terminal Styling
 
 ```go
+color := racer.Printer().Color()
 fmt.Println(color.Green("bold green with white background", ui.StyleBold, ui.ColorWhiteBg))
 fmt.Println(color.Red("underline red", ui.StyleUnderline))
 fmt.Println(color.Yellow("dim yellow", ui.StyleDim))
@@ -119,3 +120,12 @@ fmt.Println(color.Blue("bold underline dim blue", ui.StyleBold, ui.StyleUnderlin
 ## More Examples
 
 See examples under [/examples](examples) for full examples
+
+## Credits
+
+The framework is a composition, with library contributions from:
+
+* [spf13/cobra](https://github.com/spf13/cobra)
+* [bgentry/speakeasy](https://github.com/bgentry/speakeasy)
+* [cheggaaa/pb](http://github.com/cheggaaa/pb)
+* [labstack/gommon](http://github.com/labstack/gommon)
