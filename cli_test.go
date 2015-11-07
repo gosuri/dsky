@@ -27,7 +27,7 @@ var apps = []App{
 	{"api", "6MB", false},
 }
 
-func Example() {
+func ExampleCLI() {
 	root := &cobra.Command{
 		Short: "Utility to manage your clusters and applications on ovrclk",
 		Use:   "ovrclk COMMAND [<args>..] [options]",

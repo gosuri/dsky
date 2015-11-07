@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/gosuri/racer"
+	"github.com/gosuri/racer/ui"
 
 	"time"
 )
 
 func main() {
 	count := 5000
-	bar := racer.UI().NewProgressBar(count)
+	bar := ui.NewProgressBar(count)
 
 	// show percents (by default already true)
 	bar.ShowPercent = true

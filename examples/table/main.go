@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gosuri/racer"
 	"github.com/gosuri/racer/ui"
 )
 
@@ -22,5 +21,5 @@ func main() {
 	for _, hacker := range hackers {
 		table.AddRow(hacker.Name, hacker.Birthday, hacker.Bio)
 	}
-	racer.UI().Printer().Add(table).Print()
+	ui.Printer().Add(table).Print()
 }

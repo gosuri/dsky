@@ -3,12 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/gosuri/racer"
 	"github.com/gosuri/racer/ui"
 )
 
 func main() {
-	color := racer.Printer().Color()
+	color := ui.Color()
 	// Foreground
 	fmt.Println(color.Black("black"))
 	fmt.Println(color.Red("red"))

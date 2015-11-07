@@ -2,13 +2,56 @@ package ui_test
 
 import (
 	"fmt"
-
-	"github.com/gosuri/racer"
 	"github.com/gosuri/racer/ui"
+	"time"
 )
 
-func ExamplePrinter_Color() {
-	color := racer.Printer().Color()
+func ExampleTable() {
+	type hacker struct {
+		Name     string
+		Birthday string
+		Bio      string
+	}
+
+	var hackers = []hacker{
+		{"Ada Lovelace", "December 10, 1815", "Ada was a British mathematician and writer, chiefly known for her work on Charles Babbage's early mechanical general-purpose computer, the Analytical Engine"},
+		{"Alan Turing", "23 June, 1912", "Alan was a British pioneering computer scientist, mathematician, logician, cryptanalyst and theoretical biologist"},
+	}
+
+	table := ui.NewTable("NAME", "BIRTHDATE", "BIO")
+	table.MaxCellWidth = 20
+	for _, hacker := range hackers {
+		table.AddRow(hacker.Name, hacker.Birthday, hacker.Bio)
+	}
+	ui.Printer().Add(table).Print()
+}
+
+func ExampleUI_NewProgressBar() {
+	count := 5000
+	bar := ui.NewProgressBar(count).Start()
+
+	// show percents (by default already true)
+	bar.ShowPercent = true
+
+	// show bar (by default already true)
+	bar.ShowBar = true
+
+	// no need counters
+	bar.ShowCounters = true
+
+	bar.ShowTimeLeft = true
+
+	// and start
+	bar.Start()
+	for i := 0; i < count; i++ {
+		bar.Increment()
+		time.Sleep(time.Millisecond)
+	}
+	bar.FinishPrint("The End!")
+}
+
+func ExampleUI_Color() {
+	color := ui.Color()
 
 	// Foreground
 	fmt.Println(color.Black("black"))

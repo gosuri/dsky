@@ -23,7 +23,7 @@ type CLI struct {
 	// NoColor when true does not display colors
 	NoColor bool
 
-	ui    ui.UI
+	ui    ui.UserInterface
 	root  *cobra.Command
 	flags *pflag.FlagSet
 }
@@ -49,17 +49,17 @@ func Execute() error {
 }
 
 // Printer returns the printer for the Default CLI
-func Printer() *ui.Printer {
+func Printer() *ui.UIPrinter {
 	return DefaultCLI.Printer()
 }
 
 // Printer returns the printer for the CLI
-func (c *CLI) Printer() *ui.Printer {
+func (c *CLI) Printer() *ui.UIPrinter {
 	return c.UI().Printer()
 }
 
 // UI reeturns the Default UI
-func UI() ui.UI {
+func UI() ui.UserInterface {
 	return DefaultCLI.UI()
 }
 
@@ -99,15 +99,16 @@ func (c *CLI) Root() *cobra.Command {
 	return c.root
 }
 
-func (c *CLI) UI() ui.UI {
+func (c *CLI) UI() ui.UserInterface {
 	if c.ui == nil {
-		c.ui = ui.NewStdUI()
+		c.ui = ui.New()
 	}
 	c.ui.SetNoInteractive(c.NoInteractive)
+	c.ui.SetNoColor(c.NoColor)
 	return c.ui
 }
 
-func (c *CLI) SetUI(ui ui.UI) *CLI {
+func (c *CLI) SetUI(ui ui.UserInterface) *CLI {
 	c.ui = ui
 	return c
 }

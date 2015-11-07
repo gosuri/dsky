@@ -33,6 +33,8 @@ Racer organizes help based on a namespace, the below is the output for OvrClk co
 
 ```sh
 $ ovrclk help
+```
+```sh
 
 Utility to manage your clusters and applications on ovrclk
 
@@ -54,9 +56,13 @@ Additional topics:
   datacenters display datacenters
   regions     display regions
   version     display version
+```
 
+```sh
 $ ovrclk clusters help
+```
 
+```sh
 List all clusters
 
 Usage: ovrclk clusters [options]
@@ -100,7 +106,7 @@ table.MaxCellWidth = 20
 for _, hacker := range hackers {
   table.AddRow(hacker.Name, hacker.Birthday, hacker.Bio)
 }
-racer.UI().Printer().Add(table).Print()
+ui.Printer().Add(table).Print()
 ```
 
 ```sh
@@ -113,7 +119,7 @@ Alan Turing   23 June, 1912     Alan was a Britis...
 
 ```go
 count := 5000
-bar := racer.UI().NewProgressBar(count).Start()
+bar := ui.NewProgressBar(count).Start()
 for i := 0; i < count; i++ {
   bar.Increment()
   time.Sleep(time.Millisecond)
@@ -135,12 +141,11 @@ racer.UI().Prompter().PromptHiddenString(&password, "Password: ")
 ### Terminal Styling
 
 ```go
-color := racer.Printer().Color()
-fmt.Println(color.Green("bold green with white background", ui.StyleBold, ui.ColorWhiteBg))
-fmt.Println(color.Red("underline red", ui.StyleUnderline))
-fmt.Println(color.Yellow("dim yellow", ui.StyleDim))
-fmt.Println(color.Cyan("inverse cyan", ui.StyleInverse))
-fmt.Println(color.Blue("bold underline dim blue", ui.StyleBold, ui.StyleUnderline, ui.StyleDim))
+fmt.Println(ui.Color().Green("bold green with white background", ui.StyleBold, ui.ColorWhiteBg))
+fmt.Println(ui.Color().Red("underline red", ui.StyleUnderline))
+fmt.Println(ui.Color().Yellow("dim yellow", ui.StyleDim))
+fmt.Println(ui.Color().Cyan("inverse cyan", ui.StyleInverse))
+fmt.Println(ui.Color().Blue("bold underline dim blue", ui.StyleBold, ui.StyleUnderline, ui.StyleDim))
 ```
 
 ![color output](docs/color.png?raw=true)
