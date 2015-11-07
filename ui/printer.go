@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+
+	"github.com/gosuri/racer/pkg/strutil/color"
 )
 
 // Component in the interface that UI components need to implement
@@ -14,13 +16,19 @@ type Component interface {
 
 // Printer represents the output printer for the ui
 type Printer struct {
+	// Writer is where the output should writer to
 	Writer io.Writer
-	comps  []Component
+
+	// NoColor when true does not display colors
+	NoColor bool
+
+	comps []Component
+	color *color.Color
 }
 
 // NewPrinter returns a pointer to a new printer object
 func NewPrinter() *Printer {
-	return &Printer{Writer: os.Stdout}
+	return &Printer{Writer: os.Stdout, color: &color.Color{}}
 }
 
 // Add adds the components to the printer
@@ -42,6 +50,17 @@ func (p *Printer) String() string {
 		buf.WriteString("\n")
 	}
 	return buf.String()
+}
+
+// Color returns an instance of color
+func (p *Printer) Color() *color.Color {
+	if p.color == nil {
+		p.color = &color.Color{}
+	}
+	if p.NoColor {
+		p.color.Disable()
+	}
+	return p.color
 }
 
 // Print prints the output to the writer

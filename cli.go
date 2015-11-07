@@ -20,6 +20,9 @@ type CLI struct {
 	// NoIteractive flag determines the interactive mode of the CLI
 	NoInteractive bool
 
+	// NoColor when true does not display colors
+	NoColor bool
+
 	ui    ui.UI
 	root  *cobra.Command
 	flags *pflag.FlagSet

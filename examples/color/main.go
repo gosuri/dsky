@@ -1,4 +1,4 @@
-package ui_test
+package main
 
 import (
 	"fmt"
@@ -7,9 +7,8 @@ import (
 	"github.com/gosuri/racer/ui"
 )
 
-func ExamplePrinter_Color() {
+func main() {
 	color := racer.Printer().Color()
-
 	// Foreground
 	fmt.Println(color.Black("black"))
 	fmt.Println(color.Red("red"))

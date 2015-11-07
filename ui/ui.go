@@ -13,10 +13,15 @@ type UI interface {
 	Printer() *Printer
 	// Prompter must return the object that prompts the user for input
 	Prompter() *Prompter
+
 	// SetNoInteractive must set the interactive mode for the UI
 	SetNoInteractive(bool)
+
 	// NewProgressBar must return a new progress bar object
 	NewProgressBar(total int) *pb.ProgressBar
+
+	// SetNoColor must set the color mode for output
+	SetNoColor(nocolor bool)
 }
 
 // New returns a new instance of the default UI
@@ -26,6 +31,7 @@ func New() UI {
 
 // StdUI implements UI and uses standard i/o
 type StdUI struct {
+	nocolor  bool
 	prompter *Prompter
 	printer  *Printer
 	noint    bool
@@ -44,12 +50,18 @@ func (u *StdUI) Prompter() *Prompter {
 
 // Printer returns the printer for the UI
 func (u *StdUI) Printer() *Printer {
+	u.printer.NoColor = u.nocolor
 	return u.printer
 }
 
 // SetNoInteractive sets the interactive mode for the UI
 func (u *StdUI) SetNoInteractive(noint bool) {
 	u.noint = noint
+}
+
+// SetNoColor sets if the output should have color
+func (u *StdUI) SetNoColor(nocolor bool) {
+	u.nocolor = nocolor
 }
 
 // NewProgressBar returns a new progress bar object

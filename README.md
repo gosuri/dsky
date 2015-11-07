@@ -9,6 +9,7 @@ Racer currently supports [Cobra 0.0.9](https://github.com/spf13/cobra) and adds 
 * Command organization based on help topic `foo:bar`
 * Tabled Output formatting helpers
 * Interactive UI components - Normal Prompts, Password Prompts, Progress Bar
+* Terminal Text Sytles - 
 
 Cobra provides:
 
@@ -102,6 +103,18 @@ bar.FinishPrint("The End!")
 var password string
 racer.UI().Prompter().PromptHiddenString(&password, "Password: ")
 ```
+
+### Text Styles
+
+```go
+fmt.Println(color.Green("bold green with white background", ui.StyleBold, ui.ColorWhiteBg))
+fmt.Println(color.Red("underline red", ui.StyleUnderline))
+fmt.Println(color.Yellow("dim yellow", ui.StyleDim))
+fmt.Println(color.Cyan("inverse cyan", ui.StyleInverse))
+fmt.Println(color.Blue("bold underline dim blue", ui.StyleBold, ui.StyleUnderline, ui.StyleDim))
+```
+
+![color output](docs/color.png?raw=true)
 
 ## More Examples
 
