@@ -5,22 +5,30 @@ import (
 	"fmt"
 )
 
-var (
-	DefaultTableColumnSeperator = "\t"
-)
+// DefaultTableColumnSeperator is the default seperater for tabluar columns
+var DefaultTableColumnSeperator = "\t"
 
 // Table is a UI component that renders the data in formatted in a table
 type Table struct {
-	Rows         []*Row
+	// Rows is the collection of rows in the table
+	Rows []*Row
+
+	// MaxCellWidth is the maximum allowed with for cells in the table
 	MaxCellWidth int
-	Seperator    string
+
+	// Seperater for tabluar columns
+	Seperator string
 }
 
 // Row represents a row in a table
-type Row struct{ Cells []*Cell }
+type Row struct {
+	// Cells is the group of cell for the row
+	Cells []*Cell
+}
 
 // Cell Represents a column in a row
 type Cell struct {
+	// Data is the cell data
 	Data      interface{}
 	formatted string
 }

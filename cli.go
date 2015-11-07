@@ -9,12 +9,15 @@ import (
 	"github.com/spf13/pflag"
 )
 
-var (
-	DefaultCLI = New(nil)
-)
+// DefaultCLI is the default CLI for the package
+var DefaultCLI = New(nil)
 
+// CLI represent the Racer CLI library
 type CLI struct {
+	// Topics are a list a of Help Topics
 	Topics
+
+	// NoIteractive flag determines the interactive mode of the CLI
 	NoInteractive bool
 
 	ui    ui.UI
@@ -22,48 +25,59 @@ type CLI struct {
 	flags *pflag.FlagSet
 }
 
+// SetRoot registers the command as the root command for the default CLI
 func SetRoot(root *cobra.Command) *CLI {
 	return DefaultCLI.SetRoot(root)
 }
 
+// AddTopic adds a help topic to the default CLI
 func AddTopic(name, desc string, primary bool) *CLI {
 	return DefaultCLI.AddTopic(name, desc, primary)
 }
 
+// AddCommand register a cobra command with the default CLI
 func AddCommand(cmd *cobra.Command) *CLI {
 	return DefaultCLI.AddCommand(cmd)
 }
 
+// Execute executes the DefaultCLI. It binds usage function and runs the root command.
 func Execute() error {
 	return DefaultCLI.Execute()
 }
 
+// Printer returns the printer for the Default CLI
 func Printer() *ui.Printer {
 	return DefaultCLI.Printer()
 }
 
+// Printer returns the printer for the CLI
 func (c *CLI) Printer() *ui.Printer {
 	return c.UI().Printer()
 }
 
+// UI reeturns the Default UI
 func UI() ui.UI {
 	return DefaultCLI.UI()
 }
 
+// New returns an instance of the CLI and registers the root command
 func New(root *cobra.Command) *CLI {
 	return &CLI{root: root}
 }
 
+// AddTopic adds a help topic to the CLI
 func (c *CLI) AddTopic(name, desc string, primary bool) *CLI {
 	c.Topics = append(c.Topics, &Topic{name, desc, primary, nil, c.Root().CommandPath()})
 	return c
 }
 
+// SetRoot registers the command as root command
 func (c *CLI) SetRoot(root *cobra.Command) *CLI {
 	c.root = root
 	return c
 }
 
+// AddCommand register a cobra command with the CLI
 func (c *CLI) AddCommand(cmd *cobra.Command) *CLI {
 	c.Root().AddCommand(cmd)
 	return c

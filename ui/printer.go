@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"os"
 )
 
 // Component in the interface that UI components need to implement
@@ -13,13 +14,13 @@ type Component interface {
 
 // Printer represents the output printer for the ui
 type Printer struct {
-	out   io.Writer
-	comps []Component
+	Writer io.Writer
+	comps  []Component
 }
 
 // NewPrinter returns a pointer to a new printer object
-func NewPrinter(out io.Writer) *Printer {
-	return &Printer{out: out}
+func NewPrinter() *Printer {
+	return &Printer{Writer: os.Stdout}
 }
 
 // Add adds the components to the printer
@@ -45,5 +46,5 @@ func (p *Printer) String() string {
 
 // Print prints the output to the writer
 func (p *Printer) Print() {
-	fmt.Fprintln(p.out, p.String())
+	fmt.Fprintln(p.Writer, p.String())
 }

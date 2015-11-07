@@ -22,11 +22,16 @@ type Topic struct {
 	RootCmdPath string
 }
 
+// Topics represnet a list of help topics
 type Topics []*Topic
 
-func (t Topics) Len() int      { return len(t) }
+// Len returns the number of topics in Topics list
+func (t Topics) Len() int { return len(t) }
+
+// Swap swaps topic i with topic j
 func (t Topics) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
 
+// Primary returns the Primary help topics from the topic list
 func (t Topics) Primary() Topics {
 	res := make(Topics, 0)
 	for _, pt := range t {
@@ -37,6 +42,7 @@ func (t Topics) Primary() Topics {
 	return res
 }
 
+// Additional returns the additional topics in the list
 func (t Topics) Additional() Topics {
 	res := make(Topics, 0)
 	for _, at := range t {

@@ -1,6 +1,6 @@
 # racer
 
-Racer is a helper library for [Cobra](https://github.com/spf13/cobra), a library for creating powerful modern CLI applications. It powers almost all of OvrClk's tools.
+Racer is a helper library for [Cobra](https://github.com/spf13/cobra), a library for creating powerful modern CLI applications. It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
 
 ## Features
 

@@ -80,7 +80,7 @@ func main() {
 		Short:   "Create an app",
 		Aliases: []string{"create"},
 		Run: func(cmd *cobra.Command, args []string) {
-			racer.UI().Asker().AskMissingString(&newApp.Name, "Application Name: ")
+			racer.UI().Prompter().PromptString(&newApp.Name, "Application Name: ")
 			if newApp.Name == "" {
 				fmt.Println("Error: app name is required")
 				return

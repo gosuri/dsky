@@ -4,10 +4,8 @@ import (
 	"bytes"
 )
 
-var (
-	// TitleUnderliner is the underline character for the title
-	TitleUnderliner = "="
-)
+// TitleUnderliner is the underline character for the title
+var TitleUnderliner = "="
 
 // Title is a UI component that renders a title
 type Title struct {
