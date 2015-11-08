@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gosuri/racer/ui"
+	"github.com/gosuri/dsky/ui"
 )
 
 type hacker struct {
@@ -21,5 +21,5 @@ func main() {
 	for _, hacker := range hackers {
 		table.AddRow(hacker.Name, hacker.Birthday, hacker.Bio)
 	}
-	ui.Printer().Add(table).Print()
+	ui.Printer().Add(table).Flush()
 }

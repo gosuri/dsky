@@ -1,6 +1,6 @@
-# racer [![GoDoc](https://godoc.org/github.com/gosuri/racer?status.svg)](https://godoc.org/github.com/gosuri/racer) [![Build Status](https://travis-ci.org/gosuri/racer.svg?branch=master)](https://travis-ci.org/gosuri/racer)
+# dsky [![GoDoc](https://godoc.org/github.com/gosuri/dsky?status.svg)](https://godoc.org/github.com/gosuri/dsky) [![Build Status](https://travis-ci.org/gosuri/dsky.svg?branch=master)](https://travis-ci.org/gosuri/dsky)
 
-Racer is a UI framework for Terminal applications, based on [Cobra](https://github.com/spf13/cobra). It powers almost all of [OvrClk](http://ovrclk.com)'s tools.
+Dsky (DISS-key) is a UI framework for building powerful terminal applications. It provides a CLI, based on [Cobra](https://github.com/spf13/cobra) and set of UI components. Dsky powers almost all of [OvrClk](http://ovrclk.com)'s tools.
 
 ## Features
 

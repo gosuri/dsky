@@ -1,4 +1,4 @@
-package racer
+package dsky
 
 import (
 	"github.com/spf13/cobra"

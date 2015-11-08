@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/gosuri/racer/ui"
+	"github.com/gosuri/dsky/ui"
 )
 
 func main() {

@@ -28,6 +28,7 @@ type Row struct {
 
 // Cell Represents a column in a row
 type Cell struct {
+	Witdh int
 	// Data is the cell data
 	Data      interface{}
 	formatted string
@@ -47,14 +48,14 @@ func NewTable(headers ...interface{}) *Table {
 func (t *Table) AddRow(data ...interface{}) *Table {
 	cells := make([]*Cell, len(data))
 	for i, col := range data {
-		cells[i] = &Cell{Data: col}
+		cells[i] = &Cell{Data: col, Witdh: t.MaxCellWidth}
 	}
 	t.Rows = append(t.Rows, &Row{Cells: cells})
 	return t
 }
 
 // Format returns the formated table
-func (t *Table) Format() string {
+func (t *Table) String() string {
 	// determine no of columns
 	var colLen int
 	for _, row := range t.rows() {

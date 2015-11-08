@@ -5,7 +5,10 @@ import (
 )
 
 func TestTitle_String(t *testing.T) {
-	got := NewPrinter().AddTitle("foo").AddTitle("bar").String()
+	got := NewPrinter().
+		Add(NewTitle("foo")).
+		Add(NewTitle("bar")).
+		String()
 	expect := "foo\n===\n\nbar\n===\n\n"
 	if got != expect {
 		t.Fatal("== expected\n", expect, "== got\n", got)
