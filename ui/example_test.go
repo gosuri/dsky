@@ -23,7 +23,7 @@ func ExampleTable() {
 	for _, hacker := range hackers {
 		table.AddRow(hacker.Name, hacker.Birthday, hacker.Bio)
 	}
-	ui.Printer().Add(table).Print()
+	ui.Printer().Add(table).Flush()
 }
 
 func ExampleUI_NewProgressBar() {

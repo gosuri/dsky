@@ -1,15 +1,18 @@
 package ui
 
 import (
+	"io"
+
 	"github.com/gosuri/racer/pkg/strutil/color"
 	"github.com/gosuri/racer/ui/pb"
+	"github.com/gosuri/racer/ui/prompt"
 )
 
 // DefaultUI is the default UI for the package
 var DefaultUI = New()
 
 // Printer returns the object that prints from the Default UI
-func Printer() *UIPrinter {
+func Printer() *BufferedPrinter {
 	return DefaultUI.Printer()
 }
 
@@ -26,46 +29,49 @@ func Color() *color.Color {
 // UserInterface is the interface that defines UI interation functionality to the CLI
 type UserInterface interface {
 	// Printer must return the object that prints to the UI
-	Printer() *UIPrinter
+	Printer() *BufferedPrinter
 
 	// Prompter must return the object that prompts the user for input
-	Prompter() *Prompter
+	Prompt() *prompt.Prompter
 
-	// SetNoInteractive must set the interactive mode for the UI
-	SetNoInteractive(bool)
+	// Color returns an instance of color
+	Color() *color.Color
 
 	// NewProgressBar must return a new progress bar object
 	NewProgressBar(total int) *pb.ProgressBar
 
+	// SetNoInteractive must set the interactive mode for the UI
+	SetNoInteractive(bool)
+
 	// SetNoColor must set the color mode for output
 	SetNoColor(nocolor bool)
-
-	// Color returns an instance of color
-	Color() *color.Color
 }
 
-// StdUI implements UI and uses standard i/o
+// UI implements UserInterface and uses standard i/o
 type UI struct {
+	Writer io.Writer
+	Reader io.Reader
+
 	nocolor  bool
 	color    *color.Color
-	prompter *Prompter
-	printer  *UIPrinter
+	prompter *prompt.Prompter
+	printer  *BufferedPrinter
 	noint    bool
 }
 
 // NewStdUI returns an instance of the StdUI
 func New() *UI {
-	return &UI{prompter: NewPrompter(), printer: NewPrinter()}
+	return &UI{prompter: prompt.New(), printer: NewPrinter()}
 }
 
 // Prompter returns the user prompter for the UI
-func (u *UI) Prompter() *Prompter {
+func (u *UI) Prompt() *prompt.Prompter {
 	u.prompter.NoInteractive = u.noint
 	return u.prompter
 }
 
 // Printer returns the printer for the UI
-func (u *UI) Printer() *UIPrinter {
+func (u *UI) Printer() *BufferedPrinter {
 	return u.printer
 }
 

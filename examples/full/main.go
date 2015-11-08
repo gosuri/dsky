@@ -32,6 +32,7 @@ func main() {
 		Short: "Utility to manage your clusters and applications on ovrclk",
 		Use:   "ovrclk COMMAND [<args>..] [options]",
 		Run: func(cmd *cobra.Command, args []string) {
+			cmd.DebugFlags()
 			cmd.Help()
 		},
 	}
@@ -44,12 +45,13 @@ func main() {
 		Use:   "apps",
 		Short: "List all apps",
 		Run: func(cmd *cobra.Command, args []string) {
-			racer.Printer().AddTitle("Apps")
+			cmd.DebugFlags()
+			racer.Printer().Add(ui.NewTitle("Apps"))
 			table := ui.NewTable("NAME", "SIZE", "DEPLOYED")
 			for _, a := range apps {
 				table.AddRow(a.Name, a.Size, a.Deployed)
 			}
-			racer.Printer().Add(table).Print()
+			racer.Printer().Add(table).Flush()
 		},
 	}
 	racer.AddCommand(appsCmd)
@@ -62,12 +64,12 @@ func main() {
 		Example: "ovrclk apps:info -a foo",
 		Run: func(cmd *cobra.Command, args []string) {
 			app := apps[0]
-			racer.Printer().AddTitle(fmt.Sprintf("%s (app)", app.Name))
+			racer.Printer().Add(ui.NewTitle(fmt.Sprintf("%s (app)", app.Name)))
 			table := ui.NewTable()
 			table.AddRow("Name:", app.Name)
 			table.AddRow("Size:", app.Size)
 			table.AddRow("Deployed:", app.Deployed)
-			racer.Printer().Add(table).Print()
+			racer.Printer().Add(table).Flush()
 		},
 	}
 	var acinfo string
@@ -80,19 +82,19 @@ func main() {
 		Short:   "Create an app",
 		Aliases: []string{"create"},
 		Run: func(cmd *cobra.Command, args []string) {
-			racer.UI().Prompter().PromptString(&newApp.Name, "Application Name: ")
+			racer.UI().Prompt().String(&newApp.Name, "Application Name: ")
 			if newApp.Name == "" {
 				fmt.Println("Error: app name is required")
 				return
 			}
 
 			fmt.Printf("=> creating app (%s) \n", newApp.Name)
-			racer.UI().Printer().AddTitle(fmt.Sprintf("%s (app)", newApp.Name))
+			racer.UI().Printer().Add(ui.NewTitle(fmt.Sprintf("%s (app)", newApp.Name)))
 			table := new(ui.Table)
 			table.AddRow("Name:", newApp.Name)
 			table.AddRow("Size:", newApp.Size)
 			table.AddRow("Deployed:", newApp.Deployed)
-			racer.Printer().Add(table).Print()
+			racer.Printer().Add(table).Flush()
 		},
 	}
 	appsCreate.Flags().StringVarP(&newApp.Name, "name", "a", "", "App name")
@@ -103,12 +105,12 @@ func main() {
 		Use:   "clusters",
 		Short: "Manage clusters",
 		Run: func(cmd *cobra.Command, args []string) {
-			racer.Printer().AddTitle("Clusters")
+			racer.Printer().Add(ui.NewTitle("Clusters"))
 			table := ui.NewTable("NAME", "DATACENTER", "SIZE")
 			for _, c := range clusters {
 				table.AddRow(c.Name, c.Datacenter, c.Size)
 			}
-			racer.Printer().Add(table).Print()
+			racer.Printer().Add(table).Flush()
 		},
 	}
 	racer.AddCommand(clusters)

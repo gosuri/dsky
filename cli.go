@@ -49,12 +49,12 @@ func Execute() error {
 }
 
 // Printer returns the printer for the Default CLI
-func Printer() *ui.UIPrinter {
+func Printer() *ui.BufferedPrinter {
 	return DefaultCLI.Printer()
 }
 
 // Printer returns the printer for the CLI
-func (c *CLI) Printer() *ui.UIPrinter {
+func (c *CLI) Printer() *ui.BufferedPrinter {
 	return c.UI().Printer()
 }
 

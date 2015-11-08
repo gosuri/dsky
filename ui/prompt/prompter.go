@@ -1,27 +1,27 @@
-package ui
+package prompt
 
 import (
 	"fmt"
 	"io"
 	"os"
 
-	"github.com/gosuri/racer/ui/speakeasy"
+	"github.com/gosuri/racer/pkg/speakeasy"
 )
 
 // DefaultPrompter is the default prompter for the package
-var DefaultPrompter = NewPrompter()
+var DefaultPrompter = New()
 
 // PromptString uses the default prompter to prompt the user for input when
 // the string is missing in interactive mode
-func PromptString(str *string, prompt string) {
-	DefaultPrompter.PromptString(str, prompt)
+func String(str *string, prompt string) {
+	DefaultPrompter.String(str, prompt)
 }
 
 // PromptString uses the default prompter to prompt the user for input and
 // hides the input when the string is missing.  It is used for capturing sensitive
 // data (passwords). Will not prompt when no interactive is true
-func PromptHiddenString(str *string, prompt string) error {
-	return DefaultPrompter.PromptHiddenString(str, prompt)
+func HiddenString(str *string, prompt string) error {
+	return DefaultPrompter.HiddenString(str, prompt)
 }
 
 // Prompter represent an interactive prompter that captures inputs from the user
@@ -37,12 +37,12 @@ type Prompter struct {
 }
 
 // NewPrompter returns a new instance of a prompter
-func NewPrompter() *Prompter {
+func New() *Prompter {
 	return &Prompter{Reader: os.Stdin, Writer: os.Stderr}
 }
 
 // PromptString prompts the user for input when the string is missing when in interactive mode
-func (a *Prompter) PromptString(str *string, prompt string) {
+func (a *Prompter) String(str *string, prompt string) {
 	if a.NoInteractive {
 		return
 	}
@@ -54,7 +54,7 @@ func (a *Prompter) PromptString(str *string, prompt string) {
 
 // PromptHiddenString prompts the user for input and hides the input when the string is missing.
 // It used for capturing sensitive data (passwords). Will not prompt when no interactive is true
-func (a *Prompter) PromptHiddenString(str *string, prompt string) error {
+func (a *Prompter) HiddenString(str *string, prompt string) error {
 	if a.NoInteractive || len(*str) == 0 {
 		return nil
 	}
